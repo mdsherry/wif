@@ -335,7 +335,7 @@ fn parse_symbol_opt(ini: &Ini, section: &str, field: &str) -> Result<Option<Stri
 
 pub fn parse(s: &str) -> Result<Wif, WifError> {
     let mut ini = configparser::ini::Ini::new();
-    ini.read(s.into());
+    ini.read(s.into()).map_err(WifError::CouldNotParseWifFile)?;
     macro_rules! read_section {
         ($name:ident) => {
             if has_section(&ini, wif_sections::$name::NAME)? {

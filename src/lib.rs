@@ -146,6 +146,8 @@ pub enum WifError {
     LiftPlanDoesNotMatchTreadling,
     #[error("Colors must be three numbers")]
     ColorsMustBeThreeParts,
+    #[error("Could not parse WIF file: {0}")]
+    CouldNotParseWifFile(String),
 }
 
 #[derive(Debug, Clone, Copy)]

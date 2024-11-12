@@ -84,7 +84,7 @@ macro_rules! wr_table {
         }
 
         fn read(ini: &Ini) -> Result<Self::Output, crate::WifError> {
-            Ok(parse_table(ini, Self::NAME)?)
+            parse_table(ini, Self::NAME)
         }
     };
 }

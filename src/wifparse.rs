@@ -16,8 +16,7 @@ impl WifParse for NaiveDate {
     where
         Self: Sized,
     {
-        Ok(NaiveDate::parse_from_str(&s, "%B %d, %Y")
-            .map_err(|e| WifError::InvalidDate { error: e })?)
+        NaiveDate::parse_from_str(&s, "%B %d, %Y").map_err(|e| WifError::InvalidDate { error: e })
     }
 
     fn unparse(&self) -> Option<String> {
@@ -262,10 +261,8 @@ impl WifParse for Symbol {
     {
         if s.starts_with('\'') {
             Ok(Symbol::Quoted(s.chars().nth(1).unwrap()))
-        } else if s.starts_with('#') {
-            Ok(Symbol::Code(
-                char::from_u32(s[1..].parse::<u32>()?).unwrap(),
-            ))
+        } else if let Some(rest) = s.strip_prefix('#') {
+            Ok(Symbol::Code(char::from_u32(rest.parse::<u32>()?).unwrap()))
         } else {
             Ok(Symbol::Char(s.chars().nth(0).unwrap()))
         }
