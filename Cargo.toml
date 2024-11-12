@@ -1,0 +1,23 @@
+[package]
+name = "wif"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4.38"
+configparser = { version = "3.1.0", features = ["indexmap"] }
+lalrpop-util = { version = "0.22.0", features = ["lexer", "unicode"] }
+serde = { version = "1.0.196", features = ["derive"] }
+serde_yaml = "0.9.30"
+smallvec = { version = "1.13.1", features = ["union"] }
+thiserror = "1.0.56"
+
+[build-dependencies]
+lalrpop = "0.22.0"
+
+[profile.release]
+opt-level = "z"
+lto = true
+panic = 'abort'
